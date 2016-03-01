@@ -133,16 +133,16 @@ namespace DatabaseTools.Access
 
         public override void Open()
         {
-            OleDbConnection db = new OleDbConnection(this.ConnectionString);
-            try
-            {
-                do
-                {
+            //OleDbConnection db = new OleDbConnection(this.ConnectionString);
+            //try
+            //{
+            //    do
+            //    {
                 
-                } while (true);
-                if (db.State != ConnectionState.Open) 
-            }
-            
+            //    } while (true);
+            //    if (db.State != ConnectionState.Open) 
+            //}
+            throw new NotImplementedException();
         }
 
         public override string ServerVersion
@@ -155,8 +155,6 @@ namespace DatabaseTools.Access
             get { throw new NotImplementedException(); }
         }
 
-
-        public event void ErrorMessage;
     }
         
 }

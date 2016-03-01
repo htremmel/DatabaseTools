@@ -18,7 +18,7 @@ namespace DatabaseTools.Access
             {
                 if (this.UserId == null) this.UserId = "admin";	
                 if (this.Password == null) this.Password = "";
-                if (this.Driver != Drivers.Odbc) return string.Format("User Id={0}; Password={0}",this.UserId, this.Password);
+                if (this.Driver != Drivers.Odbc) return string.Format("User Id={0}; Password={1}",this.UserId, this.Password);
                 return string.Format("Uid={0}; Pwd={1};", this.UserId, this.Password);
             }
         }
@@ -35,11 +35,11 @@ namespace DatabaseTools.Access
         {
             get
             {
-                return this.Providers[this.Driver];
+                return Providers[this.Driver];
             }
         }
-        public string? UserId { get; set; }
-        public string? Password { get; set; }
+        public string UserId { get; set; }
+        public string Password { get; set; }
         public FileInfo File { get; set; }
         public override string ConnectionString
         {
@@ -47,12 +47,13 @@ namespace DatabaseTools.Access
             {
                 if (this.Driver == Drivers.ACE) 
                     return string.Format("{0} {1} Persist Security Info=False;", this.Provider, this.DataSource);
-                if(this.Driver == Drivers.Jet) return string.Format("{0} {1} {3}",this.Provider,this.DataSource,this.Security);
+                if(this.Driver == Drivers.Jet) return string.Format("{0} {1} {2}",this.Provider,this.DataSource,this.Security);
                 return string.Format("{0} {1} {2}",this.Provider,this.DataSource,this.Security);
             }
         }
 
         public static event ErrorEventHandler NotValidFileType;
+        public event ErrorEventHandler DatabaseConnectionError;
 
 #region Dictionaries
         private static Dictionary<Drivers, string> Providers = new Dictionary<Drivers, string>()
@@ -73,6 +74,13 @@ namespace DatabaseTools.Access
         {
             {".mdb", eFileType.mbd},
             {".accbd", eFileType.accb }
+        };
+
+        private Dictionary<Drivers, string> DriverElaboration = new Dictionary<Drivers, string>()
+        {
+            { Drivers.ACE, "ACE Driver" },
+            { Drivers.Jet, "Jet Driver" },
+            { Drivers.Odbc, "ODBC Driver" }
         };
         
         public enum Drivers
@@ -126,10 +134,20 @@ namespace DatabaseTools.Access
             {
                 db.ConnectionString = this.ConnectionString;
                 db.Open();
-                if (db.State != ConnectionState.Open) return false;
-                return true;
+                if (db.State != ConnectionState.Open)
+                {
+                    DatabaseConnectionError.Invoke(null, new ErrorEventArgs(new Exception(this.ToString() + " Could not connect.")));
+                    return false;
+                }
                 db.Close();
+                return true;
+                
             }
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Driver= {0} FileName= {1}", DriverElaboration[this.Driver], this.File.Name);
         }
 
         private static Drivers WhichOledbProvider(string fileName)

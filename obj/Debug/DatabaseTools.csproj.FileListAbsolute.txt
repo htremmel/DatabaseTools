@@ -28,3 +28,9 @@ E:\Dropbox\2-Projects\DatabaseTools\obj\Debug\DatabaseTools.dll
 E:\Dropbox\2-Projects\DatabaseTools\obj\Debug\DatabaseTools.pdb
 D:\Dropbox\2-Projects\DatabaseTools\bin\Debug\Microsoft.VisualStudio.TextTemplating.14.0.dll
 D:\Dropbox\2-Projects\DatabaseTools\bin\Debug\Microsoft.VisualStudio.TextTemplating.14.0.xml
+D:\Dropbox\2-Projects\_Git_Root\DatabaseTools\bin\Debug\DatabaseTools.dll
+D:\Dropbox\2-Projects\_Git_Root\DatabaseTools\bin\Debug\DatabaseTools.pdb
+D:\Dropbox\2-Projects\_Git_Root\DatabaseTools\bin\Debug\linq2db.dll
+D:\Dropbox\2-Projects\_Git_Root\DatabaseTools\bin\Debug\linq2db.pdb
+D:\Dropbox\2-Projects\_Git_Root\DatabaseTools\obj\Debug\DatabaseTools.dll
+D:\Dropbox\2-Projects\_Git_Root\DatabaseTools\obj\Debug\DatabaseTools.pdb

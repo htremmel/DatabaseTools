@@ -13,8 +13,6 @@ namespace DatabaseTools
         {
 
         }
-
-        public abstract void Build();
         public abstract bool TryConnection();
     }
 }

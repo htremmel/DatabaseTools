@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using System;
 using System.Data;
-using DatabaseTools;
-using DatabaseTools_Tests;
-using InvoiceTracker.Database;
+using DatabaseTools.Access;
 using System.Reflection;
 
 
@@ -34,58 +32,21 @@ namespace DatabaseTools_Tests.AccessDBTests
         /// </summary>
         /// <param name="path"></param>
         
-        [Test]
-    	public void ConnectionTest_Open()
-    	{            
-            MsAccessDatabase conn = new MsAccessDatabase(new FileInfo(_dbPath));
-    		Assert.IsTrue(conn.Open(),"Connection opened successfully.");
-    		conn.Close();
-    	}    	
-        
-        [Test]
-        public void ConnectionTest_Close()
-        {
-            MsAccessDatabase conn = new MsAccessDatabase(new FileInfo(_dbPath));
-            conn.Open();
-            Assert.IsTrue(conn.Close(), "Connection closed successfully.");
-        }
-		
-        [Test]
-    	public void ConnectionTest_Insert()
+        [TestCase(AccessConnectionStringBuilder.Drivers.ACE)]
+        [TestCase(AccessConnectionStringBuilder.Drivers.Jet)]
+        [TestCase(AccessConnectionStringBuilder.Drivers.Odbc)]
+    	public void ConnectionString_Test(AccessConnectionStringBuilder.Drivers driver)
     	{
-    		MsAccessDatabase conn = new MsAccessDatabase(new FileInfo(_dbPath));
-            DataTable dt = conn.GetTable("Test");
-            TestRecordFactory factory = new TestRecordFactory(10,dt);
-            foreach (DataRow r in factory.CreateTestRecords())
-            {
-                dt.Rows.Add(r);
-            }
-            conn.Update(dt);
-            
-        }
-		
-    	[Test]
-        public void InsertCmdTest()
-        {
-            MsAccessDatabase conn = new MsAccessDatabase(new FileInfo(_dbPath));
-            string str = MsAccessDatabase.OleDbInsertCommandString("Test",conn.GetColumnNames("Test").ToArray(),new object[] {"Hans","Tremmel","Now",1,"File","File_Name"});
-            string actual = "INSERT INTO Test (Access_Time, File_Name, Local_Id, Sample_File_Binary, Some_Rnd_Num, User_First_Name, User_Last_Name) VALUES ('Hans','Tremmel','Now','1','File','File_Name')";
-            Console.WriteLine(str);
-            Console.WriteLine(actual);
-            Assert.AreEqual(actual, str);
-        } 
-		
-        [Test]
-        public void CreateDatabaseTest()
-        {
-        	FileInfo fi = new FileInfo(_testDir+ "test " + DateTime.Now.ToString("hh-mm-ss") + ".accdb");
-            Console.WriteLine(fi.FullName);
-            InvoiceTrackerDatabase db = new InvoiceTrackerDatabase();
-        	MsAccessDatabase adb = 
-        		MsAccessDatabase.CreateAccessDatabase(fi, db);
-        	Assert.IsNotNull(adb);
-        }
+            AccessConnectionStringBuilder adb = new AccessConnectionStringBuilder(_dbPath, driver);
+            Console.Write(adb.ConnectionString);
+            Assert.IsTrue(adb.TryConnection());
+    	}
 
+        void adb_DatabaseConnectionError(object sender, ErrorEventArgs e)
+        {
+            throw new NotImplementedException();
+        }    	
+        
         string TestFolder(string path, int depth)
         {
             for (int i = 0; i < depth; i++)
