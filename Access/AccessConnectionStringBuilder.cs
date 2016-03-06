@@ -23,7 +23,7 @@ namespace DatabaseTools.Access
             }
         }
 
-        public string DataSource
+        private string DataSource
         {
             get
             {
@@ -31,7 +31,7 @@ namespace DatabaseTools.Access
                 return string.Format("Dbq={0};", this.File.FullName);
             }
         }
-        public string Provider 
+        private string Provider 
         {
             get
             {
@@ -41,6 +41,14 @@ namespace DatabaseTools.Access
         public string UserId { get; set; }
         public string Password { get; set; }
         public FileInfo File { get; set; }
+		public override DbConnection DatabaseConnection {
+			get 
+			{
+                DbConnection db = this.DataConnections[this.Driver];
+                db.ConnectionString = this.ConnectionString;
+                return db;
+			}
+		}
         public override string ConnectionString
         {
             get
@@ -101,13 +109,13 @@ namespace DatabaseTools.Access
 
         }
 
-        public AccessConnectionStringBuilder(string fileName, Drivers driver)
+        public AccessConnectionStringBuilder(string fileName, Drivers driver) : base()
         {
             this.File = new FileInfo(fileName);
             Driver = driver;
         }
 
-        public AccessConnectionStringBuilder(FileInfo file, Drivers driver)
+        public AccessConnectionStringBuilder(FileInfo file, Drivers driver) : base()
         {
             this.File = file;
             Driver = driver;
@@ -115,7 +123,7 @@ namespace DatabaseTools.Access
 #endregion
        
 #region Static methods
-        public static AccessConnectionStringBuilder AccessOledb(string fileName)
+        public static AccessConnectionStringBuilder AccessOleDb(string fileName)
         {
             return new AccessConnectionStringBuilder(fileName,WhichOledbProvider(fileName));
         }
@@ -126,23 +134,6 @@ namespace DatabaseTools.Access
             if (FileTypes.TryGetValue(Path.GetExtension(fileName), out fileType) == true) return true;
             NotValidFileType.Invoke(null, new ErrorEventArgs(new NotSupportedException()));
             return false;
-        }
-
-        public override bool TryConnection()
-        {
-            using (DbConnection db = this.DataConnections[this.Driver])
-            {
-                db.ConnectionString = this.ConnectionString;
-                db.Open();
-                if (db.State != ConnectionState.Open)
-                {
-                    DatabaseConnectionError.Invoke(null, new ErrorEventArgs(new Exception(this.ToString() + " Could not connect.")));
-                    return false;
-                }
-                db.Close();
-                return true;
-                
-            }
         }
 
         public override string ToString()

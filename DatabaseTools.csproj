@@ -60,8 +60,18 @@
     <Compile Include="Access\AccessDatabase.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Access\ModelTables.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelTables.tt</DependentUpon>
+    </Compile>
     <Compile Include="ConnectionStringBuilder.cs" />
+    <Compile Include="Excel\ExcelConnectionStringBuilder.cs" />
+    <Compile Include="Excel\ExcelDatabase.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="IDataContext.cs" />
+    <Compile Include="IColumn.cs" />
     <Compile Include="ITable.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="Testing\Ping.cs" />
@@ -70,6 +80,10 @@
     <Compile Include="Xml\XmlDatabase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Access\ModelTables.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ModelTables.cs</LastGenOutput>
+    </None>
     <None Include="LinqToDB.Templates\DataAnnotations.ttinclude" />
     <None Include="LinqToDB.Templates\DataModel.ttinclude" />
     <None Include="LinqToDB.Templates\EditableObject.ttinclude" />

@@ -8,19 +8,45 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Data.Common;
 using System.Data;
+using System.Data.OleDb;
 
 namespace DatabaseTools.Access
 {
-    public class AccessDatabase : DbConnection, IDataContext
+    public partial class AccessDatabase : DbConnection, IDataContext
     {
-        
-        public AccessDatabase(string connectionString)
-            : base()
+        private OleDbConnection db;
+
+        public FileInfo File { get; private set; }
+
+        #region Constructors
+        private AccessDatabase() : base() { }
+
+        public AccessDatabase(string connectionString) 
         {
             this.ConnectionString = connectionString;
         }
 
+        public AccessDatabase(FileInfo fi)
+        {
+            AccessConnectionStringBuilder ab = AccessConnectionStringBuilder.AccessOleDb(fi.FullName);
+            this.ConnectionString = db.ConnectionString;
+            this.File = ab.File;
+        }
+        #endregion
+
         #region Static methods
+        public static AccessDatabase CreateFromFileDialog()
+        {
+            try
+            {
+                return new AccessDatabase(AccessOpenDialog());
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         [STAThread]
         public static FileInfo AccessSaveAsDialog()
         {
@@ -70,19 +96,9 @@ namespace DatabaseTools.Access
                 throw ex;
             }
         }
+        #endregion
 
-        public static AccessDatabase CreateFromFile()
-        {
-            return new AccessDatabase(AccessOpenDialog().FullName);
-        }
-
-        public static AccessDatabase CreateFromFile(string fileName)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion        
-
+        #region Inherited members
         public ITable<T> GetTable<T>() where T : class
         {
             //TODO: How to get connectivity to the table?  A dicitionary that translates the POCO to the table. 
@@ -101,20 +117,17 @@ namespace DatabaseTools.Access
 
         public override void Close()
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.db.Close();
+            }
+            catch (Exception)
+            {
+                
+            }
         }
 
-        public override string ConnectionString
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public override string ConnectionString { get; set; }
 
         protected override DbCommand CreateDbCommand()
         {
@@ -138,7 +151,7 @@ namespace DatabaseTools.Access
             //{
             //    do
             //    {
-                
+
             //    } while (true);
             //    if (db.State != ConnectionState.Open) 
             //}
@@ -154,7 +167,7 @@ namespace DatabaseTools.Access
         {
             get { throw new NotImplementedException(); }
         }
+        #endregion
 
     }
-        
 }
