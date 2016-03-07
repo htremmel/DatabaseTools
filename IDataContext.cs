@@ -10,7 +10,15 @@ using System.Data.Common;
 namespace DatabaseTools
 {
     public interface IDataContext : IDbConnection
-    {        
+    {
+        List<ITable<T>> Tables { get; }
+
+        ITable<object> ITable
+        {
+            get;
+            set;
+        }
+     
         ITable<T> GetTable<T>() where T : class;
         
     }    

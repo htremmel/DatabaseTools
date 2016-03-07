@@ -12,6 +12,12 @@ namespace DatabaseTools
     	string Name { get; set; }
     	IDataContext DataContext { get; }
         List<IColumn<Type>> Columns { get; }
+
+        IColumn<T> IColumn
+        {
+            get;
+            set;
+        }
     	
     	void Insert(T poco);
     	void Select(Predicate<T> selectThis);

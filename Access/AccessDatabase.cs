@@ -8,19 +8,17 @@ using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Data.Common;
 using System.Data;
-using System.Data.OleDb;
+using DatabaseTools;
 
 namespace DatabaseTools.Access
 {
-    public partial class AccessDatabase : DbConnection, IDataContext
+    public partial class AccessDatabase : IDataContext
     {
         private OleDbConnection db;
 
         public FileInfo File { get; private set; }
 
         #region Constructors
-        private AccessDatabase() : base() { }
-
         public AccessDatabase(string connectionString) 
         {
             this.ConnectionString = connectionString;
@@ -101,73 +99,70 @@ namespace DatabaseTools.Access
         #region Inherited members
         public ITable<T> GetTable<T>() where T : class
         {
-            //TODO: How to get connectivity to the table?  A dicitionary that translates the POCO to the table. 
-            throw new NotImplementedException();
+            return new Table<T>(this);
         }
 
-        protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
+        public IDbTransaction BeginTransaction(IsolationLevel il)
         {
             throw new NotImplementedException();
         }
 
-        public override void ChangeDatabase(string databaseName)
+        public IDbTransaction BeginTransaction()
         {
             throw new NotImplementedException();
         }
 
-        public override void Close()
+        public void ChangeDatabase(string databaseName)
         {
-            try
+            throw new NotImplementedException();
+        }
+
+        public void Close()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ConnectionString
+        {
+            get
             {
-                this.db.Close();
+                throw new NotImplementedException();
             }
-            catch (Exception)
+            set
             {
-                
+                throw new NotImplementedException();
             }
         }
 
-        public override string ConnectionString { get; set; }
+        public int ConnectionTimeout
+        {
+            get { throw new NotImplementedException(); }
+        }
 
-        protected override DbCommand CreateDbCommand()
+        public IDbCommand CreateCommand()
         {
             throw new NotImplementedException();
         }
 
-        public override string DataSource
+        public string Database
         {
             get { throw new NotImplementedException(); }
         }
 
-        public override string Database
+        public void Open()
         {
-            get { throw new NotImplementedException(); }
-        }
-
-        public override void Open()
-        {
-            //OleDbConnection db = new OleDbConnection(this.ConnectionString);
-            //try
-            //{
-            //    do
-            //    {
-
-            //    } while (true);
-            //    if (db.State != ConnectionState.Open) 
-            //}
             throw new NotImplementedException();
         }
 
-        public override string ServerVersion
+        public ConnectionState State
         {
             get { throw new NotImplementedException(); }
         }
 
-        public override ConnectionState State
+        public void Dispose()
         {
-            get { throw new NotImplementedException(); }
+            throw new NotImplementedException();
         }
         #endregion
-
     }
 }

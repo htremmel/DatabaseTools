@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Interface Name="DatabaseTools.IDataContext">
+    <Position X="8" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAACAAAAAQAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IDataContext.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ITable" />
+    </ShowAsAssociation>
+  </Interface>
+  <Interface Name="DatabaseTools.ITable&lt;T&gt;">
+    <Position X="5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAQAAEAAAAAAAAgAAAAAAAQAAAEAAAAAAAAAQAhAAAA=</HashCode>
+      <FileName>ITable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="DatabaseTools.IColumn">
+    <Position X="2.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAACAAAAABCAAAAAQAQAAAAAADAAAQAAAAAAIAA=</HashCode>
+      <FileName>IColumn.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="System.Data.IDbConnection">
+    <Position X="8" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
