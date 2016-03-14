@@ -30,10 +30,6 @@
     <DefineConstants>TRACE</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="linq2db, Version=1.0.7.3, Culture=neutral, PublicKeyToken=f19f8aed7feff67e, processorArchitecture=MSIL">
-      <HintPath>..\InvoiceTracker\packages\linq2db.1.0.7.3\lib\net45\linq2db.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.VisualStudio.TextTemplating.14.0">
       <HintPath>..\InvoiceTracker_1\packages\Microsoft.VisualStudio.TextTemplating.14.0.14.1.24720\lib\net45\Microsoft.VisualStudio.TextTemplating.14.0.dll</HintPath>
     </Reference>
@@ -42,6 +38,10 @@
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.11.0">
       <HintPath>..\InvoiceTracker_1\packages\Microsoft.VisualStudio.TextTemplating.Interfaces.11.0.11.0.50727\lib\net45\Microsoft.VisualStudio.TextTemplating.Interfaces.11.0.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>packages\MySql.Data.6.9.8\lib\net45\MySql.Data.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -66,13 +66,14 @@
     <Compile Include="Column.cs" />
     <Compile Include="ConnectionStringBuilder.cs" />
     <Compile Include="Excel\ExcelConnectionStringBuilder.cs" />
-    <Compile Include="Excel\ExcelDatabase.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Excel\ExcelDatabase.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="IDataContext.cs" />
     <Compile Include="IColumn.cs" />
     <Compile Include="ITable.cs" />
     <Compile Include="Metadata.cs" />
+    <Compile Include="MySQL\MySQLConnectionStringBuilder.cs" />
+    <Compile Include="MySQL\MySQLDatabase.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="Testing\Ping.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -86,35 +87,10 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ModelTables.cs</LastGenOutput>
     </None>
+    <None Include="app.config" />
     <None Include="DatabaseTools.cd" />
-    <None Include="LinqToDB.Templates\DataAnnotations.ttinclude" />
-    <None Include="LinqToDB.Templates\DataModel.ttinclude" />
-    <None Include="LinqToDB.Templates\EditableObject.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Access.Tools.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Access.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.DB2.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Firebird.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Informix.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.MySql.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Oracle.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.PostgreSQL.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.SqlCe.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.SQLite.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.SqlServer.SqlTypes.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.SqlServer.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Sybase.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.Tools.ttinclude" />
-    <None Include="LinqToDB.Templates\LinqToDB.ttinclude" />
-    <None Include="LinqToDB.Templates\NotifyPropertyChanged.ttinclude" />
-    <None Include="LinqToDB.Templates\PluralizationService.ttinclude" />
-    <None Include="LinqToDB.Templates\ReadMe.LinqToDB.md" />
-    <None Include="LinqToDB.Templates\T4Model.ttinclude" />
-    <None Include="LinqToDB.Templates\Validation.ttinclude" />
     <None Include="packages.config" />
     <None Include="Templates\Controller.tt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="LinqToDB.Templates\CopyMe.Access.tt.txt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

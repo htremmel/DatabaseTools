@@ -21,8 +21,8 @@ namespace DatabaseTools
         Type Type { get; }  
         string TypeName { get; }
 		int Order { get; }
-		ITable<T> Parent { get; } 
-        ITable<T> RelatedTabe { get; }
+		Object Parent { get; } 
+        Object RelatedTable { get; }
         bool IsKey { get; }
         bool IsForeignKey { get; }
         bool IsNullable { get; set; }

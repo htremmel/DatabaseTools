@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseTools
 {
-    public partial class Table: ITable<T> where T : class
+    public partial class Table<T> : ITable<T> where T : class
     {
         #region Constructors
         public Table(IDataContext dataContext)
@@ -20,7 +20,7 @@ namespace DatabaseTools
         {
             get
             {
-                throw new NotImplementedException();
+                return this.GetType().Name.ToPlural();
             }
             set
             {
@@ -30,7 +30,7 @@ namespace DatabaseTools
 
         public IDataContext DataContext { get; private set; }
 
-        public List<IColumn<Type>> Columns
+        public List<IColumn> Columns
         {
             get { throw new NotImplementedException(); }
         }
@@ -110,5 +110,21 @@ namespace DatabaseTools
             get { throw new NotImplementedException(); }
         }
         #endregion
+
+
+        public List<T> Records
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public void InsertWithKey(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(int key, T entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

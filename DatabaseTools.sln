@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
+# SharpDevelop 5.1
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseTools", "DatabaseTools.csproj", "{4844FC74-3F97-42FE-838E-A722A237F068}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseTools_Tests", "DatabaseTools_Tests\DatabaseTools_Tests.csproj", "{7C0750A4-7CBD-4B31-BFF2-5F6E942D93A1}"

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatabaseTools
 {
-    public partial class Column<T> : IColumn<T> where T : class
+    public class Column : IColumn
     {
         #region Inherited members
         public string Name
@@ -41,12 +41,12 @@ namespace DatabaseTools
             get { throw new NotImplementedException(); }
         }
 
-        public ITable<T> Parent
+        public object Parent
         {
             get { throw new NotImplementedException(); }
         }
 
-        public ITable<T> RelatedTabe
+        public object RelatedTabe
         {
             get { throw new NotImplementedException(); }
         }
@@ -73,5 +73,11 @@ namespace DatabaseTools
             }
         }
         #endregion
+
+
+        public object RelatedTable
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

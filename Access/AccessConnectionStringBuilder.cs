@@ -18,7 +18,7 @@ namespace DatabaseTools.Access
             {
                 if (this.UserId == null) this.UserId = "admin";	
                 if (this.Password == null) this.Password = "";
-                if (this.Driver != Drivers.Odbc) return string.Format("User Id={0}; Password={1}",this.UserId, this.Password);
+                if (this.Driver != Drivers.Odbc) return string.Format("User Id={0}; Password={1};",this.UserId, this.Password);
                 return string.Format("Uid={0}; Pwd={1};", this.UserId, this.Password);
             }
         }

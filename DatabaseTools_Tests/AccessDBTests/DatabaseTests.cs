@@ -35,7 +35,7 @@ namespace DatabaseTools_Tests.AccessDBTests
         [TestCase(AccessConnectionStringBuilder.Drivers.ACE)]
         [TestCase(AccessConnectionStringBuilder.Drivers.Jet)]
         [TestCase(AccessConnectionStringBuilder.Drivers.Odbc)]
-    	public void ConnectionString_Test(AccessConnectionStringBuilder.Drivers driver)
+    	public void AccessStringBuilder_Test(AccessConnectionStringBuilder.Drivers driver)
     	{
             AccessConnectionStringBuilder adb = new AccessConnectionStringBuilder(_dbPath, driver);
             Console.Write(adb.ConnectionString);

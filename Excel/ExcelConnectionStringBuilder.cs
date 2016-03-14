@@ -118,22 +118,37 @@ namespace DatabaseTools.Excel
             return new ExcelConnectionStringBuilder(Driver.Ace, file);
         }
 		#endregion
-		
-		#region Helpers
-		private string Build()
+
+        #region Overriden members
+        //public override bool TryConnection()
+        //{
+        //    using (OleDbConnection conn = new OleDbConnection(this.ConnectionString))
+        //    {
+        //        conn.Open();
+        //        if (conn.State != ConnectionState.Open)
+        //        {
+        //            return false;
+        //        }
+        //        return true;
+        //    }
+        //}
+        #endregion
+
+        #region Helpers
+        private string Build()
 		{
-            if (this._driver == Driver.Odbc) return string.Format("Driver={Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)};DBQ={0};", this.File.FullName);
+            if (this._driver == Driver.Odbc) return "Driver={Microsoft Excel Driver (*.xls, *.xlsx, *.xlsm, *.xlsb)};DBQ=" + this.File.FullName+";";
             switch (this._fileType)
             {
                 case eFileType.xlsb:
-                    return string.Format("Provider=Microsoft.ACE.OLEDB.12.0; Data Source={0}; Extended Properties=Excel 12.0; {1} {2}", this.File.FullName, this.IsHdrToString(), this.DataAsTextToString());
+                    return string.Format("Provider=Microsoft.ACE.OLEDB.12.0; Data Source={0}; Extended Properties='Excel 12.0; {1} {2}'", this.File.FullName, this.IsHdrToString(), this.DataAsTextToString());
                 case eFileType.xlsm:
-                    return string.Format("Provider=Microsoft.ACE.OLEDB.12.0 Macro; Data Source={0}; Extended Properties=Excel 12.0 Xml; {1} {2}", this.File.FullName, this.IsHdrToString(), this.DataAsTextToString());
+                    return string.Format("Provider=Microsoft.ACE.OLEDB.12.0 Macro; Data Source={0}; Extended Properties='Excel 12.0 Xml; {1} {2}'", this.File.FullName, this.IsHdrToString(), this.DataAsTextToString());
                 case eFileType.xlsx:
-                    return string.Format("Provider=Microsoft.ACE.OLEDB.12.0; Data Source={0}; Extended Properties=Excel 12.0 Xml; {1} {2}", this.File.FullName, this.IsHdrToString(), this.DataAsTextToString());
+                    return string.Format("Provider=Microsoft.ACE.OLEDB.12.0; Data Source={0}; Extended Properties=\"Excel 12.0 Xml; {1} {2}\"", this.File.FullName, this.IsHdrToString(), this.DataAsTextToString());
                 case eFileType.xls:
-                    if (this._driver == Driver.Ace) return string.Format("Provider=Microsoft.ACE.OLEDB.12.0; Data Source={0}; Extended Properties=Excel 8.0; {1} {2}", this.File.FullName, this.IsHdrToString(), this.DataAsTextToString());
-                    return string.Format("Provider=Microsoft.Jet.OLEDB.4.0; Data Source={0}; Extended Properties=Excel 12.0 Xml; {1} {2}", this.File.FullName, this.IsHdrToString(), this.DataAsTextToString());
+                    if (this._driver == Driver.Ace) return string.Format("Provider=Microsoft.ACE.OLEDB.12.0; Data Source={0}; Extended Properties='Excel 8.0; {1} {2}'", this.File.FullName, this.IsHdrToString(), this.DataAsTextToString());
+                    return string.Format("Provider=Microsoft.Jet.OLEDB.4.0; Data Source={0}; Extended Properties=\"Excel 12.0 Xml; {1} {2}\"", this.File.FullName, this.IsHdrToString(), this.DataAsTextToString());
                 default:
                     goto case eFileType.xlsb;
             }

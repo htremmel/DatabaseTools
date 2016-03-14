@@ -73,6 +73,8 @@
   <ItemGroup>
     <Compile Include="AccessDBTests\DatabaseTests.cs" />
     <Compile Include="DirectoryHelper.cs" />
+    <Compile Include="ExcelTests\ExcelTests.cs" />
+    <Compile Include="MySQLTests\MySqlTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestRecord.cs" />
     <Compile Include="TestRecordFactory.cs" />
@@ -90,8 +92,6 @@
       <Name>DatabaseTools</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ExcelTests\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

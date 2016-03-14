@@ -11,31 +11,40 @@ using System.Data.Common;
 
 namespace DatabaseTools.Excel
 {
-	public partial class ExcelDatabase: DbConnection,IDataContext
+	public partial class ExcelDatabase: IDataContext
     {
 
         #region Inhertied members
+        
+
+        #endregion
+
         public ITable<T> GetTable<T>() where T : class
         {
             throw new System.NotImplementedException();
         }
 
-        protected override DbTransaction BeginDbTransaction(System.Data.IsolationLevel isolationLevel)
+        public System.Data.IDbTransaction BeginTransaction(System.Data.IsolationLevel il)
         {
             throw new System.NotImplementedException();
         }
 
-        public override void ChangeDatabase(string databaseName)
+        public System.Data.IDbTransaction BeginTransaction()
         {
             throw new System.NotImplementedException();
         }
 
-        public override void Close()
+        public void ChangeDatabase(string databaseName)
         {
             throw new System.NotImplementedException();
         }
 
-        public override string ConnectionString
+        public void Close()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public string ConnectionString
         {
             get
             {
@@ -47,37 +56,63 @@ namespace DatabaseTools.Excel
             }
         }
 
-        protected override DbCommand CreateDbCommand()
+        public int ConnectionTimeout
+        {
+            get { throw new System.NotImplementedException(); }
+        }
+
+        public System.Data.IDbCommand CreateCommand()
         {
             throw new System.NotImplementedException();
         }
 
-        public override string DataSource
+        public string Database
         {
             get { throw new System.NotImplementedException(); }
         }
 
-        public override string Database
-        {
-            get { throw new System.NotImplementedException(); }
-        }
-
-        public override void Open()
+        public void Open()
         {
             throw new System.NotImplementedException();
         }
 
-        public override string ServerVersion
+        public System.Data.ConnectionState State
         {
             get { throw new System.NotImplementedException(); }
         }
 
-        public override System.Data.ConnectionState State
+        public void Dispose()
         {
-            get { throw new System.NotImplementedException(); }
+            throw new System.NotImplementedException();
         }
 
-        #endregion
-        
+        public string Name
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        public string Server
+        {
+            get
+            {
+                throw new System.NotImplementedException();
+            }
+            set
+            {
+                throw new System.NotImplementedException();
+            }
+        }
+
+        public System.Collections.Generic.List<object> GetTables()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

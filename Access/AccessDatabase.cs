@@ -164,5 +164,36 @@ namespace DatabaseTools.Access
             throw new NotImplementedException();
         }
         #endregion
+
+        public string Name
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string Server
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+
+
+        public List<object> GetTables()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
